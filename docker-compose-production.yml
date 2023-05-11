@@ -13,11 +13,8 @@ services:
         - traefik.docker.network=traefik-public
         - traefik.http.routers.audetvRedirect.rule=Host(`fct-search.audetv.ru`) || Host(`www.fct-search.audetv.ru`)
         - traefik.http.services.audetvRedirect.loadBalancer.server.port=80
-        - traefik.http.middlewares.audetvRedirect-redirect.redirectRegex.regex=^(https?://)www.fct-search.audetv.ru/(.*)$$
-        - traefik.http.middlewares.audetvRedirect-redirect.redirectRegex.replacement=$${1}fct-search.audetv.ru/$${2}
-
-        - traefik.http.middlewares.audetvRedirect-redirect.redirectRegex.regex=^(https?://)fct-search.audetv.ru/(.*)$$
-        - traefik.http.middlewares.audetvRedirect-redirect.redirectRegex.replacement=$${1}svodd.ru/$${2}
+        - traefik.http.middlewares.audetvRedirect-redirect.redirectRegex.regex=^(https?://)(www.)?fct-search.audetv.ru/(.*)$$
+        - traefik.http.middlewares.audetvRedirect-redirect.redirectRegex.replacement=$${1}svodd.ru/$${3}
         - traefik.http.middlewares.audetvRedirect-redirect.redirectRegex.permanent=true
         - traefik.http.routers.audetvRedirect.middlewares=audetvRedirect-redirect,secure-headers
         - traefik.http.routers.audetvRedirect.entryPoints=https
